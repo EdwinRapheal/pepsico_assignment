@@ -1,0 +1,83 @@
+Instructions to run the application
+1. Create a python virtual environment for the prject by running
+    python -m venv <env_name>
+
+2. Install the required libraries
+    pip install -r requrements.txt
+
+3. Move to the app directory and runn the Flask application
+    python app.py
+
+
+API Documentation
+1. Register User: POST /auth/register
+    POST API to create a new user
+    Request Payload:
+        {
+            "username": <username>,
+            "password": <password>,
+            "email": <email>,
+            "first_name": <first_name>,
+            "last_name": <last_name>
+        }
+    Response:
+        Success:
+            {'success': True, 'message': 'User created successfully'}
+        Error:
+            {
+                "error": <Error message>
+            }
+
+2. Login User: POST /auth/login
+    POST API to login the user with the username(email) and password
+    Request:
+        {
+            "email": <Email>,
+            "password": <Password>
+        }
+    Response:
+        Success:
+            {
+                "token": <JWT Token>
+            }
+        Error:
+            {
+                "error": "email or password is incorrect"
+            }
+
+3. Get User Profile: GET /auth/profile
+    GET API to retrieve the user profile. This API is authenticated
+    Request header:
+        {
+            "x-access-tokens": <JWT Token received from the login API>
+        }
+    Response:
+        Success:
+            {
+                "email": <User email>,
+                "first_name": <User first name>,
+                "last_name": <User last name>,
+                "username": <User username>
+            }
+        Error:
+            {"error": "User not found"}
+
+4. Update User Profile: PUT /auth/profile
+    PUT API to update the user profile. This API is authenticated
+    Request header:
+        {
+            "x-access-tokens": <JWT Token received from the login API>
+        }
+    Request payload:
+        {
+            "email": <User email>,
+            "first_name": <User first name>,
+            "last_name": <User last name>,
+            "username": <User username>
+        }
+    Response:
+        Success:
+            {"success": True, "message":"User updated successfully"}
+        Error:
+            {"error":<error message>}
+
